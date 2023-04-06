@@ -1,0 +1,23 @@
+{
+  "name": "parcel-react-starter",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "version": "2.0.0",
+  "description": "",
+  "dependencies": {
+    "parcel": "^2.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url='.'",
+    "serve": "cd dist && http-server -so -c-1",
+    "deploy": "npm run build && npm run deploy:itch",
+    "deploy:itch": "butler push dist rmkubik/sub-game:html"
+  },
+  "author": "",
+  "license": "ISC"
+}
