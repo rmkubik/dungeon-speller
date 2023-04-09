@@ -1,7 +1,7 @@
 {
-  "name": "parcel-react-starter",
+  "name": "dungeon-speller",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "",
   "dependencies": {
     "parcel": "^2.0.0",
@@ -9,6 +9,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
     "http-server": "^14.1.1"
   },
   "scripts": {
@@ -16,7 +17,7 @@
     "build": "parcel build src/index.html --public-url='.'",
     "serve": "cd dist && http-server -so -c-1",
     "deploy": "npm run build && npm run deploy:itch",
-    "deploy:itch": "butler push dist rmkubik/sub-game:html"
+    "deploy:itch": "butler push dist rmkubik/dungeon-speller:html"
   },
   "author": "",
   "license": "ISC"
