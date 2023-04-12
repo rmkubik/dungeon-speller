@@ -7,6 +7,9 @@ import clamp from "../utils/number/clamp";
 import getUseableLetters from "../utils/getUseableLetters";
 import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
 import wordsText from "../data/words.txt";
+import characters from "../data/characters";
+import isCharacterValidEnemy from "../utils/isCharacterValidEnemy";
+import pickRandomEnemyCharKey from "../utils/pickRandomEnemyCharKey";
 
 const GameContext = createContext(null);
 
@@ -119,7 +122,9 @@ const GameContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (enemy.isDead()) {
-      enemy.load("hawk", player);
+      const newEnemyCharKey = pickRandomEnemyCharKey();
+
+      enemy.load(newEnemyCharKey, player);
     }
   }, [enemy.hp.current]);
 
