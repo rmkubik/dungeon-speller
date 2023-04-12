@@ -6,6 +6,10 @@ const characters = {
     letters: [
       {
         text: "k",
+        effect: {
+          symbol: "lock",
+          value: 1,
+        },
       },
       {
         text: "n",
@@ -26,11 +30,13 @@ const characters = {
   },
   hawk: {
     hp: 4,
-    intent: {
-      letterCount: 4,
-      effect: {
-        value: 2,
-        symbol: "sword",
+    intents: {
+      claw: {
+        letterCount: 4,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
       },
     },
     letters: [
@@ -45,6 +51,45 @@ const characters = {
       },
       {
         text: "k",
+      },
+    ],
+  },
+  spider: {
+    hp: 8,
+    intents: {
+      web: {
+        letterCount: 2,
+        effect: {
+          value: 1,
+          symbol: "lock",
+        },
+      },
+      bite: {
+        letterCount: 3,
+        effect: {
+          value: 1,
+          symbol: "sword",
+        },
+      },
+    },
+    letters: [
+      {
+        text: "s",
+      },
+      {
+        text: "p",
+      },
+      {
+        text: "i",
+      },
+      {
+        text: "d",
+      },
+      {
+        text: "e",
+      },
+      {
+        text: "r",
       },
     ],
   },

@@ -3,6 +3,8 @@ const symbols = {
   heart: "❤️",
   shield: "🛡",
   skull: "☠️",
+  web: "🕸",
+  lock: "🔒",
 };
 
 export default symbols;

@@ -1,15 +1,20 @@
 import React, { createContext, useContext, useState } from "react";
 import characters from "../data/characters";
-import clamp from "../utils/clamp";
+import clamp from "../utils/number/clamp";
+import pickRandomKey from "../utils/object/pickRandomKey";
 
 const EnemyContext = createContext(null);
 
 const EnemyContextProvider = ({ children }) => {
-  const [key, setKey] = useState("hawk");
+  const [key, setKey] = useState("spider");
   const character = characters[key];
   const [hp, setHp] = useState(character.hp);
   const [maxHp, setMaxHp] = useState(character.hp);
   const [intentIndex, setIntentIndex] = useState(0);
+  const [currentIntent, setCurrentIntent] = useState(
+    pickRandomKey(character.intents)
+  );
+  const [letters, setLetters] = useState(character.letters);
 
   return (
     <EnemyContext.Provider
@@ -20,7 +25,9 @@ const EnemyContextProvider = ({ children }) => {
           max: maxHp,
         },
         character,
+        intent: character.intents[currentIntent],
         intentIndex,
+        letters,
         takeDamage: (damage) => {
           const newHp = clamp(0, hp - damage, maxHp);
 

@@ -5,7 +5,7 @@ import Player from "./Player";
 import Enemy from "./Enemy";
 import { PlayerContextProvider } from "../hooks/usePlayer";
 import { EnemyContextProvider } from "../hooks/useEnemy";
-import useGame, { GameContextProvider } from "../hooks/useGame";
+import { GameContextProvider } from "../hooks/useGame";
 
 const App = () => {
   return (

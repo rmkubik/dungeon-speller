@@ -1,9 +1,10 @@
 import React from "react";
+import symbols from "../data/symbols";
 
-const Name = ({ character, word }) => {
+const Name = ({ letters, word }) => {
   return (
     <div className="name">
-      {character.letters.map((letter, index) => {
+      {letters.map((letter, index) => {
         const isActive = word.includes(letter.text);
 
         return (

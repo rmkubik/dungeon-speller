@@ -3,7 +3,9 @@ import usePlayer from "./usePlayer";
 import useEnemy from "./useEnemy";
 import Bag from "../utils/Bag";
 import calculateEffects from "../utils/calculateEffects";
-import clamp from "../utils/clamp";
+import clamp from "../utils/number/clamp";
+import getUseableLetters from "../utils/getUseableLetters";
+import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
 
 const GameContext = createContext(null);
 
@@ -22,7 +24,10 @@ const GameContextProvider = ({ children }) => {
       return;
     }
 
-    const allLetters = new Bag([...player.key, ...enemy.key]);
+    const allLetters = new Bag([
+      ...getUseableLetters(player.letters),
+      ...getUseableLetters(enemy.letters),
+    ]);
     const newLetters = newWord.split("");
     let newLettersValid = true;
 
@@ -73,19 +78,29 @@ const GameContextProvider = ({ children }) => {
       0
     );
 
-    if (
-      enemy.character.intent &&
-      letterCount >= enemy.character.intent.letterCount
-    ) {
+    if (enemy.intent && letterCount >= enemy.intent.letterCount) {
       // Enemy intent takes affect
-      switch (enemy.character.intent.effect.symbol) {
+      switch (enemy.intent.effect.symbol) {
         case "sword":
-          player.takeDamage(enemy.character.intent.effect.value);
+          player.takeDamage(enemy.intent.effect.value);
           break;
+        case "lock": {
+          const playerLetterEntries = Object.entries(player.letters);
+          const unAffectedLetterIndices = playerLetterEntries
+            .filter(([index, letter]) => !letter.effect)
+            .map(([index]) => parseInt(index, 10));
+          const targetIndex = pickRandomlyFromArray(unAffectedLetterIndices);
+
+          if (targetIndex >= 0) {
+            player.updateLetterEffect(targetIndex, {
+              symbol: "lock",
+              value: 1,
+            });
+          }
+          break;
+        }
         default:
-          console.log(
-            `Effect not implemented: ${enemy.character.intent.effect.symbol}`
-          );
+          console.warn(`Effect not implemented: ${enemy.intent.effect.symbol}`);
           break;
       }
 

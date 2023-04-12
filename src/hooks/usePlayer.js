@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import characters from "../data/characters";
-import clamp from "../utils/clamp";
+import clamp from "../utils/number/clamp";
+import update from "../utils/array/update";
 
 const PlayerContext = createContext(null);
 
@@ -14,6 +15,7 @@ const PlayerContextProvider = ({ children }) => {
     character.memory
   );
   const [rememberedWords, setRememberedWords] = useState([]);
+  const [letters, setLetters] = useState(character.letters);
 
   const rememberWord = (enemy) => (newWord) => {
     let prunedUsedWords = [...rememberedWords];
@@ -28,6 +30,23 @@ const PlayerContextProvider = ({ children }) => {
     setRememberedWords([newWord, ...prunedUsedWords]);
   };
 
+  const updateLetterEffect = (index, newEffect) => {
+    const newLetters = update(letters, index, {
+      ...letters[index],
+      /**
+       * e.g.
+       * {
+       *   symbol: 'lock',
+       *   value: 1
+       * }
+       */
+      effect: newEffect,
+    });
+    setLetters(newLetters);
+  };
+
+  console.log({ letters });
+
   return (
     <PlayerContext.Provider
       value={{
@@ -40,6 +59,8 @@ const PlayerContextProvider = ({ children }) => {
         minWordLength,
         maxRememberedWords,
         rememberedWords,
+        letters,
+        updateLetterEffect,
         takeDamage: (damage) => {
           const newHp = clamp(0, hp - damage, maxHp);
 

@@ -9,7 +9,7 @@ const Player = () => {
 
   return (
     <div>
-      <Name character={player.character} word={word} />
+      <Name letters={player.letters} word={word} />
       <p>
         ❤️ {player.hp.current}/{player.hp.max}
       </p>

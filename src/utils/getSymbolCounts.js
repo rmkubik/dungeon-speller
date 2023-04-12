@@ -1,5 +1,10 @@
 import filterAllLetters from "./filterAllLetters";
 
+/**
+ * TODO: This uses the old static player/enemy
+ * characters. It doesn't reference the current
+ * player/enemy dynamic values.
+ */
 function getSymbolCounts(player, enemy, word) {
   const symbolCounts = {};
 
