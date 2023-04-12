@@ -68,18 +68,16 @@ const GameContextProvider = ({ children }) => {
 
     const effects = calculateEffects(player.key, enemy.key, word);
 
-    const playerTakenDamage = clamp(
-      effects.skull - effects.shield,
-      0,
-      effects.skull
-    );
-    player.takeDamage(playerTakenDamage);
     enemy.takeDamage(effects.sword);
     rememberWord(word);
     setWord("");
   };
 
   useEffect(() => {
+    if (enemy.isDead()) {
+      return;
+    }
+
     const unTriggeredUsedWords = player.rememberedWords.slice(
       enemy.intentIndex
     );
