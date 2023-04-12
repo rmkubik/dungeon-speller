@@ -45,8 +45,6 @@ const PlayerContextProvider = ({ children }) => {
     setLetters(newLetters);
   };
 
-  console.log({ letters });
-
   return (
     <PlayerContext.Provider
       value={{
