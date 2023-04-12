@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import usePlayer from "./usePlayer";
 import useEnemy from "./useEnemy";
 import Bag from "../utils/Bag";
@@ -6,15 +6,21 @@ import calculateEffects from "../utils/calculateEffects";
 import clamp from "../utils/number/clamp";
 import getUseableLetters from "../utils/getUseableLetters";
 import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
+import wordsText from "../data/words.txt";
 
 const GameContext = createContext(null);
 
 const GameContextProvider = ({ children }) => {
   const player = usePlayer();
   const enemy = useEnemy();
-  const [word, setWord] = React.useState("");
+  const [word, setWord] = useState("");
+  const [dictionary, setDictionary] = useState(wordsText.split("\n"));
 
   const rememberWord = player.rememberWord(enemy);
+
+  const isWordInDictionary = (maybeWord) => {
+    return dictionary.includes(maybeWord);
+  };
 
   const updateWord = (e) => {
     const newWord = e.target.value;
@@ -53,6 +59,10 @@ const GameContextProvider = ({ children }) => {
     }
 
     if (word.length < player.minWordLength) {
+      return;
+    }
+
+    if (!isWordInDictionary(word)) {
       return;
     }
 
@@ -111,7 +121,15 @@ const GameContextProvider = ({ children }) => {
 
   return (
     <GameContext.Provider
-      value={{ player, enemy, rememberWord, submitWord, updateWord, word }}
+      value={{
+        player,
+        enemy,
+        rememberWord,
+        submitWord,
+        updateWord,
+        word,
+        isWordInDictionary,
+      }}
     >
       {children}
     </GameContext.Provider>

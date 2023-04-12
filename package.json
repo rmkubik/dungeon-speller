@@ -9,6 +9,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.3",
     "@parcel/transformer-sass": "^2.8.3",
     "http-server": "^14.1.1"
   },
