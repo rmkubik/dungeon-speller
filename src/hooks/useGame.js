@@ -105,6 +105,7 @@ const GameContextProvider = ({ children }) => {
       }
 
       enemy.setIntentIndexToMax(player);
+      enemy.pickNewIntent();
     }
   }, [player.rememberedWords, enemy.key, player.key, enemy.intentIndex]);
 

@@ -42,6 +42,9 @@ const EnemyContextProvider = ({ children }) => {
         setIntentIndexToMax: (player) => {
           setIntentIndex(player.rememberedWords.length);
         },
+        pickNewIntent: () => {
+          setCurrentIntent(pickRandomKey(character.intents));
+        },
       }}
     >
       {children}
