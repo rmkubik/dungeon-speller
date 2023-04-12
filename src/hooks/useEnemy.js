@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import characters from "../data/characters";
 import clamp from "../utils/number/clamp";
 import pickRandomKey from "../utils/object/pickRandomKey";
@@ -15,6 +15,38 @@ const EnemyContextProvider = ({ children }) => {
     pickRandomKey(character.intents)
   );
   const [letters, setLetters] = useState(character.letters);
+  const [loadingKey, setLoadingKey] = useState(null);
+
+  const pickNewIntent = () => {
+    setCurrentIntent(pickRandomKey(character.intents));
+  };
+
+  const setIntentIndexToMax = (player) => {
+    setIntentIndex(player.rememberedWords.length);
+  };
+
+  const startLoad = (newKey, player) => {
+    setLoadingKey({ newKey, player });
+  };
+
+  const finishLoad = () => {
+    setKey(loadingKey.newKey);
+    const newCharacter = characters[loadingKey.newKey];
+
+    setHp(newCharacter.hp);
+    setMaxHp(newCharacter.hp);
+    setIntentIndexToMax(loadingKey.player);
+    setCurrentIntent(pickRandomKey(newCharacter.intents));
+    setLetters(newCharacter.letters);
+
+    setLoadingKey(null);
+  };
+
+  useEffect(() => {
+    if (loadingKey) {
+      finishLoad();
+    }
+  }, [loadingKey]);
 
   return (
     <EnemyContext.Provider
@@ -39,12 +71,13 @@ const EnemyContextProvider = ({ children }) => {
             setIntentIndex(intentIndex - 1);
           }
         },
-        setIntentIndexToMax: (player) => {
-          setIntentIndex(player.rememberedWords.length);
+        setIntentIndexToMax,
+        pickNewIntent,
+        load: startLoad,
+        isDead: () => {
+          return hp <= 0;
         },
-        pickNewIntent: () => {
-          setCurrentIntent(pickRandomKey(character.intents));
-        },
+        isLoaded: loadingKey === null,
       }}
     >
       {children}

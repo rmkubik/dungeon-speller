@@ -119,6 +119,12 @@ const GameContextProvider = ({ children }) => {
     }
   }, [player.rememberedWords, enemy.key, player.key, enemy.intentIndex]);
 
+  useEffect(() => {
+    if (enemy.isDead()) {
+      enemy.load("hawk", player);
+    }
+  }, [enemy.hp.current]);
+
   return (
     <GameContext.Provider
       value={{

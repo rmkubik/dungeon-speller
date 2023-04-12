@@ -6,10 +6,6 @@ const characters = {
     letters: [
       {
         text: "k",
-        effect: {
-          symbol: "lock",
-          value: 1,
-        },
       },
       {
         text: "n",

@@ -6,6 +6,10 @@ import symbols from "../data/symbols";
 const Enemy = () => {
   const { enemy, word } = useGame();
 
+  if (!enemy.isLoaded) {
+    return null;
+  }
+
   return (
     <div>
       <Name letters={enemy.letters} word={word} />
