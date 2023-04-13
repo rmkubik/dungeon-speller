@@ -4,7 +4,13 @@ import useGame from "../hooks/useGame";
 import symbols from "../data/symbols";
 
 const Enemy = () => {
-  const { enemy, word } = useGame();
+  const {
+    enemy,
+    word,
+    lettersUntilNextEnemyIntent,
+    enemyCount,
+    winningEnemyCount,
+  } = useGame();
 
   if (!enemy.isLoaded) {
     return null;
@@ -18,8 +24,11 @@ const Enemy = () => {
       </p>
       <p>
         {enemy.intent.effect.value}
-        {symbols[enemy.intent.effect.symbol]} in {enemy.intent.letterCount} 🔠
-        (letters)
+        {symbols[enemy.intent.effect.symbol]} in {lettersUntilNextEnemyIntent}{" "}
+        🔠 (letters)
+      </p>
+      <p>
+        #️⃣ {enemyCount + 1}/{winningEnemyCount}
       </p>
     </div>
   );

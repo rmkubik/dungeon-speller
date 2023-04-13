@@ -10,6 +10,7 @@ import wordsText from "../data/words.txt";
 import characters from "../data/characters";
 import isCharacterValidEnemy from "../utils/isCharacterValidEnemy";
 import pickRandomEnemyCharKey from "../utils/pickRandomEnemyCharKey";
+import countUntriggeredUsedWordLetters from "../utils/countUntriggeredUsedWordLetters";
 
 const GameContext = createContext(null);
 
@@ -18,6 +19,8 @@ const GameContextProvider = ({ children }) => {
   const enemy = useEnemy();
   const [word, setWord] = useState("");
   const [dictionary, setDictionary] = useState(wordsText.split("\n"));
+  const [enemyCount, setEnemyCount] = useState(0);
+  const [winningEnemyCount, setWinningEnemyCount] = useState(20);
 
   const rememberWord = player.rememberWord(enemy);
 
@@ -81,13 +84,7 @@ const GameContextProvider = ({ children }) => {
       return;
     }
 
-    const unTriggeredUsedWords = player.rememberedWords.slice(
-      enemy.intentIndex
-    );
-    const letterCount = unTriggeredUsedWords.reduce(
-      (count, word) => word.length + count,
-      0
-    );
+    const letterCount = countUntriggeredUsedWordLetters(player, enemy);
 
     if (enemy.intent && letterCount >= enemy.intent.letterCount) {
       // Enemy intent takes affect
@@ -125,6 +122,8 @@ const GameContextProvider = ({ children }) => {
       const newEnemyCharKey = pickRandomEnemyCharKey();
 
       enemy.load(newEnemyCharKey, player);
+
+      setEnemyCount(enemyCount + 1);
     }
   }, [enemy.hp.current]);
 
@@ -138,6 +137,13 @@ const GameContextProvider = ({ children }) => {
         updateWord,
         word,
         isWordInDictionary,
+        get lettersUntilNextEnemyIntent() {
+          const letterCount = countUntriggeredUsedWordLetters(player, enemy);
+
+          return enemy.intent.letterCount - letterCount;
+        },
+        enemyCount,
+        winningEnemyCount,
       }}
     >
       {children}

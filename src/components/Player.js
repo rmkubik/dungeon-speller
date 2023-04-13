@@ -38,7 +38,9 @@ const Player = () => {
         ) : null}
       </form>
       <div>
-        <p>🧠</p>
+        <p>
+          🧠 {player.rememberedWords.length}/{player.maxRememberedWords}
+        </p>
         <ol>
           {player.rememberedWords.map((rememberedWord) => (
             <li key={rememberedWord}>{rememberedWord}</li>
