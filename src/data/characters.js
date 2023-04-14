@@ -3,6 +3,13 @@ const characters = {
     hp: 10,
     memory: 10,
     minWordLength: 4,
+    ability: {
+      name: "Armor",
+      effectText: "Reduce incoming damage by 1",
+      onTakeDamage: (incomingDamage) => {
+        return Math.max(0, incomingDamage - 1);
+      },
+    },
     letters: [
       {
         text: "k",

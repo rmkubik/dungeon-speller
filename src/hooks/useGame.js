@@ -90,7 +90,11 @@ const GameContextProvider = ({ children }) => {
       // Enemy intent takes affect
       switch (enemy.intent.effect.symbol) {
         case "sword":
-          player.takeDamage(enemy.intent.effect.value);
+          const playerDamage =
+            player.ability?.onTakeDamage?.(enemy.intent.effect.value) ??
+            enemy.intent.effect.value;
+
+          player.takeDamage(playerDamage);
           break;
         case "lock": {
           const playerLetterEntries = Object.entries(player.letters);

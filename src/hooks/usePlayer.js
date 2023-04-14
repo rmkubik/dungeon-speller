@@ -65,6 +65,9 @@ const PlayerContextProvider = ({ children }) => {
           setHp(newHp);
         },
         rememberWord,
+        ability: {
+          ...character.ability,
+        },
       }}
     >
       {children}
