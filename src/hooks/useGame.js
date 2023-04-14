@@ -72,7 +72,7 @@ const GameContextProvider = ({ children }) => {
       return;
     }
 
-    const effects = calculateEffects(player.key, enemy.key, word);
+    const effects = calculateEffects(player, enemy, word);
 
     const enemyDamage =
       enemy.ability?.onTakeDamage?.({
@@ -80,6 +80,12 @@ const GameContextProvider = ({ children }) => {
         word,
       }) ?? effects.sword;
     enemy.takeDamage(enemyDamage);
+
+    enemy.ability?.onUsedWord?.({
+      player,
+      word,
+    });
+
     rememberWord(word);
     setWord("");
   };
@@ -128,6 +134,8 @@ const GameContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (enemy.isDead()) {
+      enemy.ability?.onEnemyLeave?.({ enemy, player });
+
       const newEnemyCharKey = pickRandomEnemyCharKey();
 
       enemy.load(newEnemyCharKey, player);
@@ -135,6 +143,12 @@ const GameContextProvider = ({ children }) => {
       setEnemyCount(enemyCount + 1);
     }
   }, [enemy.hp.current]);
+
+  useEffect(() => {
+    if (enemy.isLoaded) {
+      enemy.ability?.onEnemyEnter?.({ enemy, player });
+    }
+  }, [enemy.isLoaded]);
 
   return (
     <GameContext.Provider

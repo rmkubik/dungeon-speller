@@ -1,3 +1,6 @@
+import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
+import isVowel from "../utils/isVowel";
+
 const characters = {
   knight: {
     hp: 10,
@@ -103,19 +106,30 @@ const characters = {
   spider: {
     hp: 8,
     intents: {
-      web: {
-        letterCount: 2,
-        effect: {
-          value: 1,
-          symbol: "lock",
-        },
-      },
       bite: {
         letterCount: 3,
         effect: {
           value: 1,
           symbol: "sword",
         },
+      },
+    },
+    ability: {
+      name: "Web",
+      effectText: "Locks a random player letter for every word submitted",
+      onUsedWord: ({ player }) => {
+        const playerLetterEntries = Object.entries(player.letters);
+        const unAffectedLetterIndices = playerLetterEntries
+          .filter(([index, letter]) => !letter.effect)
+          .map(([index]) => parseInt(index, 10));
+        const targetIndex = pickRandomlyFromArray(unAffectedLetterIndices);
+
+        if (targetIndex >= 0) {
+          player.updateLetterEffect(targetIndex, {
+            symbol: "lock",
+            value: 1,
+          });
+        }
       },
     },
     letters: [
@@ -142,7 +156,7 @@ const characters = {
   wolf: {
     hp: 4,
     intents: {
-      claw: {
+      bite: {
         letterCount: 4,
         effect: {
           value: 2,
@@ -328,6 +342,133 @@ const characters = {
       },
       {
         text: "t",
+      },
+    ],
+  },
+  golem: {
+    hp: 3,
+    intents: {
+      hit: {
+        letterCount: 6,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Armor",
+      effectText: "Reduce incoming damage by 1",
+      onTakeDamage: ({ incomingDamage, word }) => {
+        return Math.max(0, incomingDamage - 1);
+      },
+    },
+    letters: [
+      {
+        text: "g",
+      },
+      {
+        text: "o",
+      },
+      {
+        text: "l",
+      },
+      {
+        text: "e",
+      },
+      {
+        text: "m",
+      },
+    ],
+  },
+  ghost: {
+    hp: 2,
+    intents: {
+      moan: {
+        letterCount: 5,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Immaterial",
+      effectText: "Immune to consonant damage.",
+      onCalculateEffects: ({ effects, enemyLettersInWord, word }) => {
+        const vowelsOnly = enemyLettersInWord.filter(isVowel);
+
+        return {
+          ...effects,
+          sword: vowelsOnly.length,
+        };
+      },
+    },
+    letters: [
+      {
+        text: "g",
+      },
+      {
+        text: "h",
+      },
+      {
+        text: "o",
+      },
+      {
+        text: "s",
+      },
+      {
+        text: "t",
+      },
+    ],
+  },
+  ghoul: {
+    hp: 5,
+    intents: {
+      moan: {
+        letterCount: 4,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Curse",
+      effectText: "Lock player vowels.",
+      onEnemyEnter: ({ enemy, player }) => {
+        player.letters.forEach((letter, index) => {
+          if (isVowel(letter.text)) {
+            player.updateLetterEffect(index, {
+              symbol: "lock",
+              value: 1,
+            });
+          }
+        });
+      },
+      onEnemyLeave: ({ enemy, player }) => {
+        player.letters.forEach((letter, index) => {
+          if (isVowel(letter.text)) {
+            player.updateLetterEffect(index, undefined);
+          }
+        });
+      },
+    },
+    letters: [
+      {
+        text: "g",
+      },
+      {
+        text: "h",
+      },
+      {
+        text: "o",
+      },
+      {
+        text: "u",
+      },
+      {
+        text: "l",
       },
     ],
   },

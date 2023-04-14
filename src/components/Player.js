@@ -21,7 +21,7 @@ const Player = () => {
       <form onSubmit={submitWord}>
         <input type="text" value={word} onChange={updateWord} />
         <div className="wordEffectSummary">
-          {Object.entries(calculateEffects(player.key, enemy.key, word))
+          {Object.entries(calculateEffects(player, enemy, word))
             .filter(([, count]) => count > 0)
             .map(([symbol, count]) => {
               return (
