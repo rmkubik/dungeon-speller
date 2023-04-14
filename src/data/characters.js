@@ -34,6 +34,80 @@ const characters = {
       },
     ],
   },
+  rogue: {
+    hp: 8,
+    memory: 10,
+    minWordLength: 2,
+    ability: {
+      name: "Backstab",
+      effectText: "2x damage if using the enemy's last letter",
+      onDealDamage: ({ incomingDamage, word, enemy }) => {
+        const enemyLastLetter = enemy.letters[enemy.letters.length - 1].text;
+
+        return word.includes(enemyLastLetter)
+          ? incomingDamage * 2
+          : incomingDamage;
+      },
+    },
+    letters: [
+      {
+        text: "r",
+      },
+      {
+        text: "o",
+      },
+      {
+        text: "g",
+      },
+      {
+        text: "u",
+      },
+      {
+        text: "e",
+      },
+    ],
+  },
+  barbarian: {
+    hp: 12,
+    memory: 5,
+    minWordLength: 4,
+    ability: {
+      name: "Rage",
+      effectText: "Deal extra damage for each missing hp",
+      onDealDamage: ({ incomingDamage, word, enemy, player }) => {
+        return incomingDamage + (player.hp.max - player.hp.current);
+      },
+    },
+    letters: [
+      {
+        text: "b",
+      },
+      {
+        text: "a",
+      },
+      {
+        text: "r",
+      },
+      {
+        text: "b",
+      },
+      {
+        text: "a",
+      },
+      {
+        text: "r",
+      },
+      {
+        text: "i",
+      },
+      {
+        text: "a",
+      },
+      {
+        text: "n",
+      },
+    ],
+  },
   hawk: {
     hp: 3,
     intents: {
@@ -437,6 +511,7 @@ const characters = {
       name: "Curse",
       effectText: "Lock player vowels.",
       onEnemyEnter: ({ enemy, player }) => {
+        // TODO: This cannot effect more than one letter right now
         player.letters.forEach((letter, index) => {
           if (isVowel(letter.text)) {
             player.updateLetterEffect(index, {
@@ -447,6 +522,7 @@ const characters = {
         });
       },
       onEnemyLeave: ({ enemy, player }) => {
+        // TODO: This cannot effect more than one letter right now
         player.letters.forEach((letter, index) => {
           if (isVowel(letter.text)) {
             player.updateLetterEffect(index, undefined);

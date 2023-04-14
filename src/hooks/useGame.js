@@ -74,11 +74,24 @@ const GameContextProvider = ({ children }) => {
 
     const effects = calculateEffects(player, enemy, word);
 
-    const enemyDamage =
-      enemy.ability?.onTakeDamage?.({
-        incomingDamage: effects.sword,
+    let enemyDamage = effects.sword;
+
+    if (enemy.ability?.onTakeDamage) {
+      enemyDamage = enemy.ability.onTakeDamage({
+        incomingDamage: enemyDamage,
         word,
-      }) ?? effects.sword;
+      });
+    }
+
+    if (player.ability?.onDealDamage) {
+      enemyDamage = player.ability.onDealDamage({
+        incomingDamage: enemyDamage,
+        player,
+        enemy,
+        word,
+      });
+    }
+
     enemy.takeDamage(enemyDamage);
 
     enemy.ability?.onUsedWord?.({

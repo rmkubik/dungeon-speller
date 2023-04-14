@@ -2,11 +2,12 @@ import React, { createContext, useContext, useState } from "react";
 import characters from "../data/characters";
 import clamp from "../utils/number/clamp";
 import update from "../utils/array/update";
+import pickRandomPlayerCharKey from "../utils/pickRandomPlayerCharKey";
 
 const PlayerContext = createContext(null);
 
 const PlayerContextProvider = ({ children }) => {
-  const [key, setKey] = useState("knight");
+  const [key, setKey] = useState(pickRandomPlayerCharKey());
   const character = characters[key];
   const [hp, setHp] = useState(character.hp);
   const [maxHp, setMaxHp] = useState(character.hp);
