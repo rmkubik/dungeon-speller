@@ -13,9 +13,11 @@ const Player = () => {
       <p>
         ❤️ {player.hp.current}/{player.hp.max}
       </p>
-      <p>
-        <strong>{player.ability.name}</strong> - {player.ability.effectText}
-      </p>
+      {player.ability.name ? (
+        <p>
+          <strong>{player.ability.name}</strong> - {player.ability.effectText}
+        </p>
+      ) : null}
       <form onSubmit={submitWord}>
         <input type="text" value={word} onChange={updateWord} />
         <div className="wordEffectSummary">

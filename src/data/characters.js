@@ -32,7 +32,7 @@ const characters = {
     ],
   },
   hawk: {
-    hp: 4,
+    hp: 3,
     intents: {
       claw: {
         letterCount: 4,
@@ -40,6 +40,17 @@ const characters = {
           value: 2,
           symbol: "sword",
         },
+      },
+    },
+    ability: {
+      name: "Fly",
+      effectText: "Dodge words longer than 5 🔠",
+      onTakeDamage: ({ incomingDamage, word }) => {
+        if (word.length > 5) {
+          return 0;
+        }
+
+        return incomingDamage;
       },
     },
     letters: [

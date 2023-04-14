@@ -79,6 +79,9 @@ const EnemyContextProvider = ({ children }) => {
           return hp <= 0;
         },
         isLoaded: loadingKey === null,
+        ability: {
+          ...character.ability,
+        },
       }}
     >
       {children}

@@ -22,6 +22,11 @@ const Enemy = () => {
       <p>
         ❤️ {enemy.hp.current}/{enemy.hp.max}
       </p>
+      {enemy.ability.name ? (
+        <p>
+          <strong>{enemy.ability.name}</strong> - {enemy.ability.effectText}
+        </p>
+      ) : null}
       <p>
         {enemy.intent.effect.value}
         {symbols[enemy.intent.effect.symbol]} in {lettersUntilNextEnemyIntent}{" "}
