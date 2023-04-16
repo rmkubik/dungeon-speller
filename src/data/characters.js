@@ -34,8 +34,8 @@ const characters = {
   },
   drunk: {
     hp: 8,
-    memory: 6,
-    minWordLength: 5,
+    memory: 3,
+    minWordLength: 4,
     level: 1,
     letters: [
       { text: "d" },
@@ -48,7 +48,7 @@ const characters = {
   noble: {
     hp: 5,
     memory: 12,
-    minWordLength: 5,
+    minWordLength: 4,
     level: 1,
     letters: [
       { text: "n" },
@@ -56,6 +56,63 @@ const characters = {
       { text: "b" },
       { text: "l" },
       { text: "e" },
+    ],
+  },
+  brawler: {
+    hp: 6,
+    memory: 8,
+    minWordLength: 3,
+    level: 6,
+    letters: [
+      { text: "b" },
+      { text: "r" },
+      { text: "a" },
+      { text: "w" },
+      { text: "l" },
+      { text: "e" },
+      { text: "r" },
+    ],
+  },
+  squire: {
+    hp: 8,
+    memory: 6,
+    minWordLength: 4,
+    level: 6,
+    letters: [
+      { text: "s" },
+      { text: "q" },
+      { text: "u" },
+      { text: "i" },
+      { text: "r" },
+      { text: "e" },
+    ],
+  },
+  thief: {
+    hp: 8,
+    memory: 6,
+    minWordLength: 5,
+    level: 6,
+    letters: [
+      { text: "t" },
+      { text: "h" },
+      { text: "i" },
+      { text: "e" },
+      { text: "f" },
+    ],
+  },
+  scholar: {
+    hp: 5,
+    memory: 12,
+    minWordLength: 5,
+    level: 6,
+    letters: [
+      { text: "s" },
+      { text: "c" },
+      { text: "h" },
+      { text: "o" },
+      { text: "l" },
+      { text: "a" },
+      { text: "r" },
     ],
   },
   knight: {

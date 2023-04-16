@@ -60,8 +60,8 @@ const PlayerContextProvider = ({ children }) => {
     setLetters(newLetters);
   };
 
-  const startLoad = (newKey, player) => {
-    setLoadingKey({ newKey, player });
+  const startLoad = (newKey) => {
+    setLoadingKey({ newKey });
   };
 
   const finishLoad = () => {
@@ -71,7 +71,7 @@ const PlayerContextProvider = ({ children }) => {
     setHp(newCharacter.hp);
     setMaxHp(newCharacter.hp);
     setMinWordLength(newCharacter.minWordLength);
-    setMaxRememberedWords(newCharacter.maxRememberedWords);
+    setMaxRememberedWords(newCharacter.memory);
     setRememberedWords(rememberedWords.slice(0, newCharacter.memory));
     setLetters(newCharacter.letters);
 

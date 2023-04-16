@@ -8,6 +8,7 @@ import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
 import wordsText from "../data/words.txt";
 import countUntriggeredUsedWordLetters from "../utils/countUntriggeredUsedWordLetters";
 import getEnemyForEncounterLevel from "../utils/getEnemyForEncounterLevel";
+import pickRandomPlayerCharKeyForLevel from "../utils/pickRandomPlayerCharKeyForLevel";
 
 const GameContext = createContext(null);
 
@@ -152,6 +153,10 @@ const GameContextProvider = ({ children }) => {
       const newEnemyCharKey = getEnemyForEncounterLevel(newEncounterLevel);
 
       enemy.load(newEnemyCharKey, player);
+
+      if (newEncounterLevel === 6) {
+        player.load(pickRandomPlayerCharKeyForLevel(6));
+      }
 
       setEnemyCount(newEncounterLevel);
     }
