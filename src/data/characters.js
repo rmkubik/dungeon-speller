@@ -47,7 +47,7 @@ const characters = {
   },
   noble: {
     hp: 5,
-    memory: 12,
+    memory: 10,
     minWordLength: 4,
     level: 1,
     letters: [
@@ -59,9 +59,9 @@ const characters = {
     ],
   },
   brawler: {
-    hp: 6,
-    memory: 8,
-    minWordLength: 3,
+    hp: 10,
+    memory: 6,
+    minWordLength: 4,
     level: 6,
     letters: [
       { text: "b" },
@@ -74,8 +74,8 @@ const characters = {
     ],
   },
   squire: {
-    hp: 8,
-    memory: 6,
+    hp: 12,
+    memory: 8,
     minWordLength: 4,
     level: 6,
     letters: [
@@ -89,8 +89,8 @@ const characters = {
   },
   thief: {
     hp: 8,
-    memory: 6,
-    minWordLength: 5,
+    memory: 10,
+    minWordLength: 3,
     level: 6,
     letters: [
       { text: "t" },
@@ -101,7 +101,7 @@ const characters = {
     ],
   },
   scholar: {
-    hp: 5,
+    hp: 6,
     memory: 12,
     minWordLength: 5,
     level: 6,
