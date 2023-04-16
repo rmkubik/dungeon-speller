@@ -7,7 +7,7 @@ import pickRandomPlayerCharKeyForLevel from "../utils/pickRandomPlayerCharKeyFor
 const PlayerContext = createContext(null);
 
 const PlayerContextProvider = ({ children }) => {
-  const [key, setKey] = useState("thief"); //useState(pickRandomPlayerCharKeyForLevel(1));
+  const [key, setKey] = useState(pickRandomPlayerCharKeyForLevel(1)); // useState("thief");
   const character = characters[key];
   const [hp, setHp] = useState(character.hp);
   const [maxHp, setMaxHp] = useState(character.hp);
