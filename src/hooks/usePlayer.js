@@ -46,6 +46,19 @@ const PlayerContextProvider = ({ children }) => {
     setLetters(newLetters);
   };
 
+  const updateLetterEffectBulk = (changes = []) => {
+    const newLetters = changes.reduce((currentLetters, currentChange) => {
+      const [index, newEffect] = currentChange;
+
+      return update(currentLetters, index, {
+        ...currentLetters[index],
+        effect: newEffect,
+      });
+    }, letters);
+
+    setLetters(newLetters);
+  };
+
   return (
     <PlayerContext.Provider
       value={{
@@ -60,6 +73,7 @@ const PlayerContextProvider = ({ children }) => {
         rememberedWords,
         letters,
         updateLetterEffect,
+        updateLetterEffectBulk,
         takeDamage: (damage) => {
           const newHp = clamp(0, hp - damage, maxHp);
 

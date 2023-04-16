@@ -110,6 +110,10 @@ const characters = {
   },
   hawk: {
     hp: 3,
+    encounter: {
+      min: 2,
+      max: 4,
+    },
     intents: {
       claw: {
         letterCount: 4,
@@ -179,6 +183,10 @@ const characters = {
   },
   spider: {
     hp: 8,
+    encounter: {
+      min: 2,
+      max: 4,
+    },
     intents: {
       bite: {
         letterCount: 3,
@@ -205,6 +213,15 @@ const characters = {
           });
         }
       },
+      onEnemyLeave: ({ enemy, player }) => {
+        const letterKeys = Object.keys(player.letters);
+        const letterIndices = letterKeys.map(([index]) => parseInt(index));
+        const lockChanges = letterIndices.map((index) => {
+          return [index, undefined];
+        });
+
+        player.updateLetterEffectBulk(lockChanges);
+      },
     },
     letters: [
       {
@@ -229,6 +246,10 @@ const characters = {
   },
   wolf: {
     hp: 4,
+    encounter: {
+      min: 2,
+      max: 4,
+    },
     intents: {
       bite: {
         letterCount: 4,
@@ -255,41 +276,10 @@ const characters = {
   },
   serpent: {
     hp: 8,
-    intents: {
-      bite: {
-        letterCount: 4,
-        effect: {
-          value: 2,
-          symbol: "sword",
-        },
-      },
+    encounter: {
+      min: 2,
+      max: 4,
     },
-    letters: [
-      {
-        text: "s",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "p",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "n",
-      },
-      {
-        text: "t",
-      },
-    ],
-  },
-  serpent: {
-    hp: 8,
     intents: {
       bite: {
         letterCount: 4,
@@ -398,6 +388,10 @@ const characters = {
   },
   ant: {
     hp: 3,
+    encounter: {
+      min: 1,
+      max: 1,
+    },
     intents: {
       bite: {
         letterCount: 2,
@@ -511,23 +505,26 @@ const characters = {
       name: "Curse",
       effectText: "Lock player vowels.",
       onEnemyEnter: ({ enemy, player }) => {
-        // TODO: This cannot effect more than one letter right now
-        player.letters.forEach((letter, index) => {
-          if (isVowel(letter.text)) {
-            player.updateLetterEffect(index, {
-              symbol: "lock",
-              value: 1,
-            });
-          }
+        const letterEntries = Object.entries(player.letters);
+        const vowelIndices = letterEntries
+          .filter(([index, letter]) => isVowel(letter.text))
+          .map(([index]) => parseInt(index));
+        const lockChanges = vowelIndices.map((index) => {
+          return [index, { symbol: "lock", value: 1 }];
         });
+
+        player.updateLetterEffectBulk(lockChanges);
       },
       onEnemyLeave: ({ enemy, player }) => {
-        // TODO: This cannot effect more than one letter right now
-        player.letters.forEach((letter, index) => {
-          if (isVowel(letter.text)) {
-            player.updateLetterEffect(index, undefined);
-          }
+        const letterEntries = Object.entries(player.letters);
+        const vowelIndices = letterEntries
+          .filter(([index, letter]) => isVowel(letter.text))
+          .map(([index]) => parseInt(index));
+        const lockChanges = vowelIndices.map((index) => {
+          return [index, undefined];
         });
+
+        player.updateLetterEffectBulk(lockChanges);
       },
     },
     letters: [
