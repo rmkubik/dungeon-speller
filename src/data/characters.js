@@ -2,6 +2,62 @@ import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
 import isVowel from "../utils/isVowel";
 
 const characters = {
+  peasant: {
+    hp: 6,
+    memory: 8,
+    minWordLength: 4,
+    level: 1,
+    letters: [
+      { text: "p" },
+      { text: "e" },
+      { text: "a" },
+      { text: "s" },
+      { text: "a" },
+      { text: "n" },
+      { text: "t" },
+    ],
+  },
+  innkeep: {
+    hp: 8,
+    memory: 6,
+    minWordLength: 4,
+    level: 1,
+    letters: [
+      { text: "i" },
+      { text: "n" },
+      { text: "n" },
+      { text: "k" },
+      { text: "e" },
+      { text: "e" },
+      { text: "p" },
+    ],
+  },
+  drunk: {
+    hp: 8,
+    memory: 6,
+    minWordLength: 5,
+    level: 1,
+    letters: [
+      { text: "d" },
+      { text: "r" },
+      { text: "u" },
+      { text: "n" },
+      { text: "k" },
+    ],
+  },
+  noble: {
+    hp: 5,
+    memory: 12,
+    minWordLength: 5,
+    level: 1,
+    letters: [
+      { text: "n" },
+      { text: "o" },
+      { text: "b" },
+      { text: "l" },
+      { text: "e" },
+    ],
+  },
   knight: {
     hp: 10,
     memory: 10,
@@ -575,6 +631,40 @@ const characters = {
       { text: "m" },
       { text: "a" },
       { text: "n" },
+    ],
+  },
+  imp: {
+    hp: 6,
+    encounter: {
+      min: 6,
+      max: 9,
+    },
+    intents: {
+      stab: {
+        letterCount: 3,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Spite",
+      effectText: "Deal 1 damage on death",
+      onEnemyLeave: ({ enemy, player }) => {
+        player.takeDamage(1);
+      },
+    },
+    letters: [
+      {
+        text: "i",
+      },
+      {
+        text: "m",
+      },
+      {
+        text: "p",
+      },
     ],
   },
 };

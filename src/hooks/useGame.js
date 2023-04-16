@@ -6,7 +6,6 @@ import calculateEffects from "../utils/calculateEffects";
 import getUseableLetters from "../utils/getUseableLetters";
 import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
 import wordsText from "../data/words.txt";
-import pickRandomEnemyCharKey from "../utils/pickRandomEnemyCharKey";
 import countUntriggeredUsedWordLetters from "../utils/countUntriggeredUsedWordLetters";
 import getEnemyForEncounterLevel from "../utils/getEnemyForEncounterLevel";
 
