@@ -94,6 +94,18 @@ const GameContextProvider = ({ children }) => {
 
     enemy.takeDamage(enemyDamage);
 
+    // TODO: The player and enemy abilities can
+    // interfere here. I think we need to switch
+    // to a state management model like Redux or
+    // mobx-state-tree that can support synchronous
+    // changes to state.
+    // ex. DRUNK and SHAMAN changing enemy letters
+    // will interfere.
+    player.ability?.onUsedWord?.({
+      player,
+      enemy,
+      word,
+    });
     enemy.ability?.onUsedWord?.({
       player,
       enemy,

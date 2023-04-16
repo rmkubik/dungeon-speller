@@ -1,4 +1,5 @@
 import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
+import shuffle from "../utils/array/shuffle";
 import isVowel from "../utils/isVowel";
 
 const characters = {
@@ -37,6 +38,15 @@ const characters = {
     memory: 3,
     minWordLength: 4,
     level: 1,
+    ability: {
+      name: "Dizzy",
+      effectText: "Scramble enemy letters after every word",
+      onUsedWord: ({ enemy }) => {
+        const enemyLetters = enemy.letters.map((letter) => letter.text);
+        const scrambledWord = shuffle(enemyLetters).join("");
+        enemy.replaceLetters(scrambledWord);
+      },
+    },
     letters: [
       { text: "d" },
       { text: "r" },
