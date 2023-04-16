@@ -30,6 +30,16 @@ const EnemyContextProvider = ({ children }) => {
     setLoadingKey({ newKey, player });
   };
 
+  const replaceLetters = (newWord) => {
+    setLetters(
+      newWord.split("").map((letter) => {
+        return {
+          text: letter,
+        };
+      })
+    );
+  };
+
   const finishLoad = () => {
     setKey(loadingKey.newKey);
     const newCharacter = characters[loadingKey.newKey];
@@ -78,6 +88,7 @@ const EnemyContextProvider = ({ children }) => {
         isDead: () => {
           return hp <= 0;
         },
+        replaceLetters,
         isLoaded: loadingKey === null,
         ability: {
           ...character.ability,

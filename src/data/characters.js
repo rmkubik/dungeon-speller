@@ -545,6 +545,38 @@ const characters = {
       },
     ],
   },
+  shaman: {
+    hp: 12,
+    encounter: {
+      min: 5,
+      max: 5,
+    },
+    intents: {
+      attack: {
+        letterCount: 4,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Transform",
+      effectText: "Change after every word",
+      onUsedWord: ({ enemy }) => {
+        const transforms = ["hawk", "serpent", "spider", "ant", "wolf"];
+        enemy.replaceLetters(pickRandomlyFromArray(transforms));
+      },
+    },
+    letters: [
+      { text: "s" },
+      { text: "h" },
+      { text: "a" },
+      { text: "m" },
+      { text: "a" },
+      { text: "n" },
+    ],
+  },
 };
 
 export default characters;

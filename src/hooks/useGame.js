@@ -17,7 +17,7 @@ const GameContextProvider = ({ children }) => {
   const enemy = useEnemy();
   const [word, setWord] = useState("");
   const [dictionary, setDictionary] = useState(wordsText.split("\n"));
-  const [enemyCount, setEnemyCount] = useState(0);
+  const [enemyCount, setEnemyCount] = useState(1);
   const [winningEnemyCount, setWinningEnemyCount] = useState(20);
 
   const rememberWord = player.rememberWord(enemy);
@@ -94,6 +94,7 @@ const GameContextProvider = ({ children }) => {
 
     enemy.ability?.onUsedWord?.({
       player,
+      enemy,
       word,
     });
 

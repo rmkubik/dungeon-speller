@@ -33,7 +33,7 @@ const Enemy = () => {
         🔠 (letters)
       </p>
       <p>
-        #️⃣ {enemyCount + 1}/{winningEnemyCount}
+        #️⃣ {enemyCount}/{winningEnemyCount}
       </p>
     </div>
   );
