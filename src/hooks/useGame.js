@@ -78,6 +78,8 @@ const GameContextProvider = ({ children }) => {
       enemyDamage = enemy.ability.onTakeDamage({
         incomingDamage: enemyDamage,
         word,
+        player,
+        enemy,
       });
     }
 
@@ -150,6 +152,7 @@ const GameContextProvider = ({ children }) => {
 
       const newEncounterLevel = enemyCount + 1;
 
+      console.log("ENEMY DEAD");
       const newEnemyCharKey = getEnemyForEncounterLevel(newEncounterLevel);
 
       enemy.load(newEnemyCharKey, player);

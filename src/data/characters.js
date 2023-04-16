@@ -724,6 +724,53 @@ const characters = {
       },
     ],
   },
+  thorny: {
+    hp: 8,
+    encounter: {
+      min: 6,
+      max: 9,
+    },
+    intents: {
+      stab: {
+        letterCount: 6,
+        effect: {
+          value: 2,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Spiky",
+      effectText: "Deal 1 damage after taking damage",
+      onTakeDamage: ({ incomingDamage, word, player }) => {
+        if (incomingDamage > 0) {
+          player.takeDamage(1);
+        }
+
+        return incomingDamage;
+      },
+    },
+    letters: [
+      {
+        text: "t",
+      },
+      {
+        text: "h",
+      },
+      {
+        text: "o",
+      },
+      {
+        text: "r",
+      },
+      {
+        text: "n",
+      },
+      {
+        text: "y",
+      },
+    ],
+  },
 };
 
 export default characters;
