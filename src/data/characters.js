@@ -102,6 +102,15 @@ const characters = {
     memory: 10,
     minWordLength: 3,
     level: 6,
+    ability: {
+      name: "Pickpocket",
+      effectText: "Steal enemy letter on kill",
+      onEnemyLeave: ({ enemy, player }) => {
+        const enemyLetters = enemy.letters.map((letter) => letter.text);
+
+        player.addLetter(pickRandomlyFromArray(enemyLetters));
+      },
+    },
     letters: [
       { text: "t" },
       { text: "h" },

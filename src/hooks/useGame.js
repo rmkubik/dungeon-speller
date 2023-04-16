@@ -167,7 +167,11 @@ const GameContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (enemy.isDead()) {
+      // TODO:
+      // These do not correctly overlap
+      // SPIDER & THIEF fight each other.
       enemy.ability?.onEnemyLeave?.({ enemy, player });
+      player.ability?.onEnemyLeave?.({ enemy, player });
 
       const newEncounterLevel = enemyCount + 1;
 
