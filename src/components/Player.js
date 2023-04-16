@@ -7,6 +7,10 @@ import symbols from "../data/symbols";
 const Player = () => {
   const { player, enemy, updateWord, word, submitWord } = useGame();
 
+  if (!player.isLoaded) {
+    return null;
+  }
+
   return (
     <div>
       <Name letters={player.letters} word={word} />
@@ -18,6 +22,7 @@ const Player = () => {
           <strong>{player.ability.name}</strong> - {player.ability.effectText}
         </p>
       ) : null}
+      <p>🔠 ≥ {player.minWordLength}</p>
       <form onSubmit={submitWord}>
         <input type="text" value={word} onChange={updateWord} />
         <div className="wordEffectSummary">

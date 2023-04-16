@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import characters from "../data/characters";
 import clamp from "../utils/number/clamp";
 import update from "../utils/array/update";
@@ -17,6 +17,7 @@ const PlayerContextProvider = ({ children }) => {
   );
   const [rememberedWords, setRememberedWords] = useState([]);
   const [letters, setLetters] = useState(character.letters);
+  const [loadingKey, setLoadingKey] = useState(null);
 
   const rememberWord = (enemy) => (newWord) => {
     let prunedUsedWords = [...rememberedWords];
@@ -59,6 +60,30 @@ const PlayerContextProvider = ({ children }) => {
     setLetters(newLetters);
   };
 
+  const startLoad = (newKey, player) => {
+    setLoadingKey({ newKey, player });
+  };
+
+  const finishLoad = () => {
+    setKey(loadingKey.newKey);
+    const newCharacter = characters[loadingKey.newKey];
+
+    setHp(newCharacter.hp);
+    setMaxHp(newCharacter.hp);
+    setMinWordLength(newCharacter.minWordLength);
+    setMaxRememberedWords(newCharacter.maxRememberedWords);
+    setRememberedWords(rememberedWords.slice(0, newCharacter.memory));
+    setLetters(newCharacter.letters);
+
+    setLoadingKey(null);
+  };
+
+  useEffect(() => {
+    if (loadingKey) {
+      finishLoad();
+    }
+  }, [loadingKey]);
+
   return (
     <PlayerContext.Provider
       value={{
@@ -83,6 +108,8 @@ const PlayerContextProvider = ({ children }) => {
         ability: {
           ...character.ability,
         },
+        isLoaded: loadingKey === null,
+        load: startLoad,
       }}
     >
       {children}

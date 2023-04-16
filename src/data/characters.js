@@ -5,7 +5,7 @@ const characters = {
   peasant: {
     hp: 6,
     memory: 8,
-    minWordLength: 4,
+    minWordLength: 3,
     level: 1,
     letters: [
       { text: "p" },
