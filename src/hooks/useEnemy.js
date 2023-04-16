@@ -2,12 +2,12 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import characters from "../data/characters";
 import clamp from "../utils/number/clamp";
 import pickRandomKey from "../utils/object/pickRandomKey";
-import pickRandomEnemyCharKey from "../utils/pickRandomEnemyCharKey";
+import getEnemyForEncounterLevel from "../utils/getEnemyForEncounterLevel";
 
 const EnemyContext = createContext(null);
 
 const EnemyContextProvider = ({ children }) => {
-  const [key, setKey] = useState(pickRandomEnemyCharKey());
+  const [key, setKey] = useState(getEnemyForEncounterLevel(1));
   const character = characters[key];
   const [hp, setHp] = useState(character.hp);
   const [maxHp, setMaxHp] = useState(character.hp);

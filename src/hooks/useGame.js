@@ -3,14 +3,12 @@ import usePlayer from "./usePlayer";
 import useEnemy from "./useEnemy";
 import Bag from "../utils/Bag";
 import calculateEffects from "../utils/calculateEffects";
-import clamp from "../utils/number/clamp";
 import getUseableLetters from "../utils/getUseableLetters";
 import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
 import wordsText from "../data/words.txt";
-import characters from "../data/characters";
-import isCharacterValidEnemy from "../utils/isCharacterValidEnemy";
 import pickRandomEnemyCharKey from "../utils/pickRandomEnemyCharKey";
 import countUntriggeredUsedWordLetters from "../utils/countUntriggeredUsedWordLetters";
+import getEnemyForEncounterLevel from "../utils/getEnemyForEncounterLevel";
 
 const GameContext = createContext(null);
 
@@ -149,11 +147,13 @@ const GameContextProvider = ({ children }) => {
     if (enemy.isDead()) {
       enemy.ability?.onEnemyLeave?.({ enemy, player });
 
-      const newEnemyCharKey = pickRandomEnemyCharKey();
+      const newEncounterLevel = enemyCount + 1;
+
+      const newEnemyCharKey = getEnemyForEncounterLevel(newEncounterLevel);
 
       enemy.load(newEnemyCharKey, player);
 
-      setEnemyCount(enemyCount + 1);
+      setEnemyCount(newEncounterLevel);
     }
   }, [enemy.hp.current]);
 
