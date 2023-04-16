@@ -40,6 +40,12 @@ const EnemyContextProvider = ({ children }) => {
     );
   };
 
+  const takeDamage = (damage) => {
+    const newHp = clamp(0, hp - damage, maxHp);
+
+    setHp(newHp);
+  };
+
   const finishLoad = () => {
     setKey(loadingKey.newKey);
     const newCharacter = characters[loadingKey.newKey];
@@ -71,10 +77,9 @@ const EnemyContextProvider = ({ children }) => {
         intent: character.intents[currentIntent],
         intentIndex,
         letters,
-        takeDamage: (damage) => {
-          const newHp = clamp(0, hp - damage, maxHp);
-
-          setHp(newHp);
+        takeDamage,
+        heal: (healing) => {
+          takeDamage(-healing);
         },
         decrementIntentIndex: () => {
           // Reduce enemyIntentIndex if we can

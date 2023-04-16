@@ -564,6 +564,10 @@ const characters = {
   },
   ghost: {
     hp: 2,
+    encounter: {
+      min: 6,
+      max: 9,
+    },
     intents: {
       moan: {
         letterCount: 5,
@@ -605,6 +609,10 @@ const characters = {
   },
   ghoul: {
     hp: 5,
+    encounter: {
+      min: 6,
+      max: 9,
+    },
     intents: {
       moan: {
         letterCount: 4,
@@ -768,6 +776,52 @@ const characters = {
       },
       {
         text: "y",
+      },
+    ],
+  },
+  vampire: {
+    hp: 14,
+    encounter: {
+      min: 10,
+      max: 10,
+    },
+    intents: {
+      bite: {
+        letterCount: 6,
+        effect: {
+          value: 3,
+          symbol: "sword",
+        },
+      },
+    },
+    ability: {
+      name: "Drain",
+      effectText: "Heal equal to damage dealt",
+      onDealDamage: ({ enemy, damage }) => {
+        enemy.heal(damage);
+      },
+    },
+    letters: [
+      {
+        text: "v",
+      },
+      {
+        text: "a",
+      },
+      {
+        text: "m",
+      },
+      {
+        text: "p",
+      },
+      {
+        text: "i",
+      },
+      {
+        text: "r",
+      },
+      {
+        text: "e",
       },
     ],
   },

@@ -115,9 +115,16 @@ const GameContextProvider = ({ children }) => {
       // Enemy intent takes affect
       switch (enemy.intent.effect.symbol) {
         case "sword":
-          const playerDamage =
+          let playerDamage =
             player.ability?.onTakeDamage?.(enemy.intent.effect.value) ??
             enemy.intent.effect.value;
+
+          playerDamage =
+            enemy.ability?.onDealDamage?.({
+              damage: playerDamage,
+              player,
+              enemy,
+            }) ?? playerDamage;
 
           player.takeDamage(playerDamage);
           break;
@@ -152,7 +159,6 @@ const GameContextProvider = ({ children }) => {
 
       const newEncounterLevel = enemyCount + 1;
 
-      console.log("ENEMY DEAD");
       const newEnemyCharKey = getEnemyForEncounterLevel(newEncounterLevel);
 
       enemy.load(newEnemyCharKey, player);
