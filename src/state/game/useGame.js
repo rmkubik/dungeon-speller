@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import usePlayer from "./usePlayer";
-import useEnemy from "./useEnemy";
-import Bag from "../utils/Bag";
-import calculateEffects from "../utils/calculateEffects";
-import getUseableLetters from "../utils/getUseableLetters";
-import pickRandomlyFromArray from "../utils/array/pickRandomlyFromArray";
-import wordsText from "../data/words.txt";
-import countUntriggeredUsedWordLetters from "../utils/countUntriggeredUsedWordLetters";
-import getEnemyForEncounterLevel from "../utils/getEnemyForEncounterLevel";
-import pickRandomPlayerCharKeyForLevel from "../utils/pickRandomPlayerCharKeyForLevel";
+import usePlayer from "../player/usePlayer";
+import useEnemy from "../enemy/useEnemy";
+import Bag from "../../utils/Bag";
+import calculateEffects from "../../utils/calculateEffects";
+import getUseableLetters from "../../utils/getUseableLetters";
+import pickRandomlyFromArray from "../../utils/array/pickRandomlyFromArray";
+import wordsText from "../../data/words.txt";
+import countUntriggeredUsedWordLetters from "../../utils/countUntriggeredUsedWordLetters";
+import getEnemyForEncounterLevel from "../../utils/getEnemyForEncounterLevel";
+import pickRandomPlayerCharKeyForLevel from "../../utils/pickRandomPlayerCharKeyForLevel";
 
 const GameContext = createContext(null);
 
@@ -20,7 +20,7 @@ const GameContextProvider = ({ children }) => {
   const [enemyCount, setEnemyCount] = useState(1);
   const [winningEnemyCount, setWinningEnemyCount] = useState(20);
 
-  const rememberWord = player.rememberWord(enemy);
+  // const rememberWord = player.rememberWord(enemy);
 
   const isWordInDictionary = (maybeWord) => {
     return dictionary.includes(maybeWord);
@@ -59,14 +59,19 @@ const GameContextProvider = ({ children }) => {
     e.preventDefault();
 
     if (player.rememberedWords.includes(word)) {
+      console.log(`${word} is already remembered`);
       return;
     }
 
     if (word.length < player.minWordLength) {
+      console.log(
+        `${word} is not long enough, needs to be at least ${player.minWordLength}`
+      );
       return;
     }
 
     if (!isWordInDictionary(word)) {
+      console.log(`${word} is not in dictionary`);
       return;
     }
 
@@ -112,7 +117,8 @@ const GameContextProvider = ({ children }) => {
       word,
     });
 
-    rememberWord(word);
+    player.rememberWord(word);
+    enemy.submitWord(word);
     setWord("");
   };
 
@@ -121,7 +127,9 @@ const GameContextProvider = ({ children }) => {
       return;
     }
 
-    const letterCount = countUntriggeredUsedWordLetters(player, enemy);
+    const letterCount = enemy.lettersSinceLastIntentTrigger;
+
+    console.log({ letterCount });
 
     if (enemy.intent && letterCount >= enemy.intent.letterCount) {
       // Enemy intent takes affect
@@ -160,10 +168,15 @@ const GameContextProvider = ({ children }) => {
           break;
       }
 
-      enemy.setIntentIndexToMax(player);
+      enemy.resetIntentTracker();
       enemy.pickNewIntent();
     }
-  }, [player.rememberedWords, enemy.key, player.key, enemy.intentIndex]);
+  }, [
+    player.rememberedWords,
+    enemy.key,
+    player.key,
+    enemy.lettersSinceLastIntentTrigger,
+  ]);
 
   useEffect(() => {
     if (enemy.isDead()) {
@@ -187,26 +200,26 @@ const GameContextProvider = ({ children }) => {
     }
   }, [enemy.hp.current]);
 
-  useEffect(() => {
-    if (enemy.isLoaded) {
-      enemy.ability?.onEnemyEnter?.({ enemy, player });
-    }
-  }, [enemy.isLoaded]);
+  // useEffect(() => {
+  //   if (enemy.isLoaded) {
+  //     enemy.ability?.onEnemyEnter?.({ enemy, player });
+  //   }
+  // }, [enemy.isLoaded]);
 
   return (
     <GameContext.Provider
       value={{
         player,
         enemy,
-        rememberWord,
+        rememberWord: player.rememberWord,
         submitWord,
         updateWord,
         word,
         isWordInDictionary,
         get lettersUntilNextEnemyIntent() {
-          const letterCount = countUntriggeredUsedWordLetters(player, enemy);
+          const letterCount = enemy.lettersSinceLastIntentTrigger;
 
-          return enemy.intent.letterCount - letterCount;
+          return Math.max(0, enemy.intent.letterCount - letterCount);
         },
         enemyCount,
         winningEnemyCount,

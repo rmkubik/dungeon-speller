@@ -1,15 +1,11 @@
 import React from "react";
 import Name from "./Name";
-import useGame from "../hooks/useGame";
+import useGame from "../state/game/useGame";
 import calculateEffects from "../utils/calculateEffects";
 import symbols from "../data/symbols";
 
 const Player = () => {
   const { player, enemy, updateWord, word, submitWord } = useGame();
-
-  if (!player.isLoaded) {
-    return null;
-  }
 
   return (
     <div>

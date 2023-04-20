@@ -1,11 +1,5 @@
 function countUntriggeredUsedWordLetters(player, enemy) {
-  const unTriggeredUsedWords = player.rememberedWords.slice(enemy.intentIndex);
-  const letterCount = unTriggeredUsedWords.reduce(
-    (count, word) => word.length + count,
-    0
-  );
-
-  return letterCount;
+  return enemy.lettersSinceLastIntentTrigger;
 }
 
 export default countUntriggeredUsedWordLetters;

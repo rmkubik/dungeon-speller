@@ -3,9 +3,9 @@ import "../styles/main.scss";
 
 import Player from "./Player";
 import Enemy from "./Enemy";
-import { PlayerContextProvider } from "../hooks/usePlayer";
-import { EnemyContextProvider } from "../hooks/useEnemy";
-import { GameContextProvider } from "../hooks/useGame";
+import { PlayerContextProvider } from "../state/player/usePlayer";
+import { EnemyContextProvider } from "../state/enemy/useEnemy";
+import { GameContextProvider } from "../state/game/useGame";
 
 const App = () => {
   return (

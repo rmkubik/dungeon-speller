@@ -1,6 +1,6 @@
 import React from "react";
 import Name from "./Name";
-import useGame from "../hooks/useGame";
+import useGame from "../state/game/useGame";
 import symbols from "../data/symbols";
 
 const Enemy = () => {
@@ -11,10 +11,6 @@ const Enemy = () => {
     enemyCount,
     winningEnemyCount,
   } = useGame();
-
-  if (!enemy.isLoaded) {
-    return null;
-  }
 
   return (
     <div>
