@@ -12,5 +12,5 @@ export default {
   lettersSinceLastIntentTrigger: 0,
   currentIntent: pickRandomKey(intents),
   letters,
-  loadingKey: null,
+  state: "loaded", // 'loaded', 'loading'
 };

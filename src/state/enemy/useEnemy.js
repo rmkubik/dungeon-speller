@@ -1,27 +1,24 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import characters from "../../data/characters";
-import pickRandomKey from "../../utils/object/pickRandomKey";
 import submitWord from "./ducks/submitWord";
 import reducer from "./reducer";
 import initialState from "./initialState";
 import takeDamage from "../player/ducks/takeDamage";
 import pickNewIntent from "./ducks/pickNewIntent";
 import replaceLetters from "../player/ducks/replaceLetters";
-import load from "./ducks/load";
+import load, { finishLoad } from "./ducks/load";
 import resetIntentTracker from "./ducks/resetIntentTracker";
 
 const EnemyContext = createContext(null);
 
 const EnemyContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [reducerState, dispatch] = useReducer(reducer, initialState);
 
-  console.log("enemy", { state });
+  console.log("enemy", {
+    reducerState,
+    load: load(dispatch),
+  });
+
   const {
     key,
     hp,
@@ -29,13 +26,14 @@ const EnemyContextProvider = ({ children }) => {
     lettersSinceLastIntentTrigger,
     currentIntent,
     letters,
-  } = state;
+    state,
+  } = reducerState;
   const character = characters[key];
 
   return (
     <EnemyContext.Provider
       value={{
-        key,
+        state,
         hp: {
           current: hp,
           max: maxHp,
@@ -49,6 +47,7 @@ const EnemyContextProvider = ({ children }) => {
         },
         pickNewIntent: pickNewIntent(dispatch),
         load: load(dispatch),
+        finishLoad: finishLoad(dispatch),
         isDead: () => {
           return hp <= 0;
         },

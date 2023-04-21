@@ -8,6 +8,12 @@ const load = (dispatch) => (key) => {
   });
 };
 
+const finishLoad = (dispatch) => () => {
+  dispatch({
+    type: "LOAD_ENEMY_FINISHED",
+  });
+};
+
 function reduceLoadEnemy(state, action) {
   if (action.type === "LOAD_ENEMY") {
     const { key } = action;
@@ -22,11 +28,16 @@ function reduceLoadEnemy(state, action) {
       currentIntent: pickRandomKey(character.intents),
       lettersSinceLastIntentTrigger: 0,
       letters: character.letters,
+      state: "loading",
     };
+  }
+
+  if (action.type === "LOAD_ENEMY_FINISHED") {
+    return { ...state, state: "loaded" };
   }
 
   return state;
 }
 
 export default load;
-export { reduceLoadEnemy };
+export { reduceLoadEnemy, finishLoad };

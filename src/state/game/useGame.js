@@ -20,8 +20,6 @@ const GameContextProvider = ({ children }) => {
   const [enemyCount, setEnemyCount] = useState(1);
   const [winningEnemyCount, setWinningEnemyCount] = useState(20);
 
-  // const rememberWord = player.rememberWord(enemy);
-
   const isWordInDictionary = (maybeWord) => {
     return dictionary.includes(maybeWord);
   };
@@ -200,11 +198,13 @@ const GameContextProvider = ({ children }) => {
     }
   }, [enemy.hp.current]);
 
-  // useEffect(() => {
-  //   if (enemy.isLoaded) {
-  //     enemy.ability?.onEnemyEnter?.({ enemy, player });
-  //   }
-  // }, [enemy.isLoaded]);
+  useEffect(() => {
+    console.log(enemy.state);
+    if (enemy.state === "loading") {
+      enemy.ability?.onEnemyEnter?.({ enemy, player });
+      enemy.finishLoad();
+    }
+  }, [enemy.state]);
 
   return (
     <GameContext.Provider
