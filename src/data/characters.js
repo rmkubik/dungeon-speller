@@ -8,6 +8,16 @@ const characters = {
     memory: 8,
     minWordLength: 3,
     level: 1,
+    ability: {
+      name: "Weak",
+      effectText: "Deal 1 less damage (min 1)",
+      onCalculateEffects: ({ effects }) => {
+        return {
+          ...effects,
+          sword: Math.max(1, effects.sword - 1),
+        };
+      },
+    },
     letters: [
       { text: "p" },
       { text: "e" },
@@ -23,6 +33,13 @@ const characters = {
     memory: 6,
     minWordLength: 4,
     level: 1,
+    ability: {
+      name: "Distracted",
+      effectText: "Cannot use a word longer than 5 letters",
+      isWordValid: (word) => {
+        return word.length <= 5;
+      },
+    },
     letters: [
       { text: "i" },
       { text: "n" },
@@ -60,6 +77,17 @@ const characters = {
     memory: 10,
     minWordLength: 4,
     level: 1,
+    ability: {
+      name: "Snooty",
+      effectText: "Cannot use words with more than 3 consonants",
+      isWordValid: (word) => {
+        const consonantCount = word
+          .split("")
+          .map((letter) => isVowel(letter))
+          .filter((x) => !x).length;
+        return consonantCount <= 3;
+      },
+    },
     letters: [
       { text: "n" },
       { text: "o" },

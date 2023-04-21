@@ -11,14 +11,23 @@ function calculateEffects(player, enemy, word) {
     skull: 0,
   };
 
-  const finalEffects =
-    enemy.ability?.onCalculateEffects?.({
+  const playerEffects =
+    player.ability?.onCalculateEffects?.({
       effects: initialEffects,
       player,
       enemy,
       enemyLettersInWord,
       word,
     }) ?? initialEffects;
+
+  const finalEffects =
+    enemy.ability?.onCalculateEffects?.({
+      effects: playerEffects,
+      player,
+      enemy,
+      enemyLettersInWord,
+      word,
+    }) ?? playerEffects;
 
   return finalEffects;
 }

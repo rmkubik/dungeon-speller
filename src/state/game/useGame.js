@@ -73,6 +73,11 @@ const GameContextProvider = ({ children }) => {
       return;
     }
 
+    if (!(player.ability?.isWordValid?.(word) ?? true)) {
+      // Player ability renders word invalid
+      return;
+    }
+
     const effects = calculateEffects(player, enemy, word);
 
     let enemyDamage = effects.sword;
