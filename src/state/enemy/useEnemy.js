@@ -8,6 +8,7 @@ import pickNewIntent from "./ducks/pickNewIntent";
 import replaceLetters from "../player/ducks/replaceLetters";
 import load, { finishLoad } from "./ducks/load";
 import resetIntentTracker from "./ducks/resetIntentTracker";
+import createLettersFromString from "../../utils/createLettersFromString";
 
 const EnemyContext = createContext(null);
 
@@ -25,10 +26,16 @@ const EnemyContextProvider = ({ children }) => {
     maxHp,
     lettersSinceLastIntentTrigger,
     currentIntent,
-    letters,
     state,
+    word,
   } = reducerState;
   const character = characters[key];
+
+  let letters = createLettersFromString(key);
+
+  if (word) {
+    letters = createLettersFromString(word);
+  }
 
   return (
     <EnemyContext.Provider

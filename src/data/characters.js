@@ -18,15 +18,6 @@ const characters = {
         };
       },
     },
-    letters: [
-      { text: "p" },
-      { text: "e" },
-      { text: "a" },
-      { text: "s" },
-      { text: "a" },
-      { text: "n" },
-      { text: "t" },
-    ],
   },
   innkeep: {
     hp: 8,
@@ -40,15 +31,6 @@ const characters = {
         return word.length <= 5;
       },
     },
-    letters: [
-      { text: "i" },
-      { text: "n" },
-      { text: "n" },
-      { text: "k" },
-      { text: "e" },
-      { text: "e" },
-      { text: "p" },
-    ],
   },
   drunk: {
     hp: 8,
@@ -64,13 +46,6 @@ const characters = {
         enemy.replaceLetters(scrambledWord);
       },
     },
-    letters: [
-      { text: "d" },
-      { text: "r" },
-      { text: "u" },
-      { text: "n" },
-      { text: "k" },
-    ],
   },
   noble: {
     hp: 5,
@@ -88,42 +63,18 @@ const characters = {
         return consonantCount <= 3;
       },
     },
-    letters: [
-      { text: "n" },
-      { text: "o" },
-      { text: "b" },
-      { text: "l" },
-      { text: "e" },
-    ],
   },
   brawler: {
     hp: 10,
     memory: 6,
     minWordLength: 4,
     level: 6,
-    letters: [
-      { text: "b" },
-      { text: "r" },
-      { text: "a" },
-      { text: "w" },
-      { text: "l" },
-      { text: "e" },
-      { text: "r" },
-    ],
   },
   squire: {
     hp: 12,
     memory: 8,
     minWordLength: 4,
     level: 6,
-    letters: [
-      { text: "s" },
-      { text: "q" },
-      { text: "u" },
-      { text: "i" },
-      { text: "r" },
-      { text: "e" },
-    ],
   },
   thief: {
     hp: 8,
@@ -139,28 +90,12 @@ const characters = {
         player.addLetter(pickRandomlyFromArray(enemyLetters));
       },
     },
-    letters: [
-      { text: "t" },
-      { text: "h" },
-      { text: "i" },
-      { text: "e" },
-      { text: "f" },
-    ],
   },
   scholar: {
     hp: 6,
     memory: 12,
     minWordLength: 5,
     level: 6,
-    letters: [
-      { text: "s" },
-      { text: "c" },
-      { text: "h" },
-      { text: "o" },
-      { text: "l" },
-      { text: "a" },
-      { text: "r" },
-    ],
   },
   knight: {
     hp: 10,
@@ -173,26 +108,6 @@ const characters = {
         return Math.max(0, incomingDamage - 1);
       },
     },
-    letters: [
-      {
-        text: "k",
-      },
-      {
-        text: "n",
-      },
-      {
-        text: "i",
-      },
-      {
-        text: "g",
-      },
-      {
-        text: "h",
-      },
-      {
-        text: "t",
-      },
-    ],
   },
   rogue: {
     hp: 8,
@@ -209,23 +124,6 @@ const characters = {
           : incomingDamage;
       },
     },
-    letters: [
-      {
-        text: "r",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "g",
-      },
-      {
-        text: "u",
-      },
-      {
-        text: "e",
-      },
-    ],
   },
   barbarian: {
     hp: 12,
@@ -238,35 +136,6 @@ const characters = {
         return incomingDamage + (player.hp.max - player.hp.current);
       },
     },
-    letters: [
-      {
-        text: "b",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "b",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "i",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "n",
-      },
-    ],
   },
   hawk: {
     hp: 3,
@@ -294,20 +163,6 @@ const characters = {
         return incomingDamage;
       },
     },
-    letters: [
-      {
-        text: "h",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "w",
-      },
-      {
-        text: "k",
-      },
-    ],
   },
   dragon: {
     hp: 12,
@@ -320,26 +175,6 @@ const characters = {
         },
       },
     },
-    letters: [
-      {
-        text: "d",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "g",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "n",
-      },
-    ],
   },
   spider: {
     hp: 8,
@@ -383,26 +218,6 @@ const characters = {
         player.updateLetterEffectBulk(lockChanges);
       },
     },
-    letters: [
-      {
-        text: "s",
-      },
-      {
-        text: "p",
-      },
-      {
-        text: "i",
-      },
-      {
-        text: "d",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "r",
-      },
-    ],
   },
   wolf: {
     hp: 4,
@@ -419,20 +234,6 @@ const characters = {
         },
       },
     },
-    letters: [
-      {
-        text: "w",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "l",
-      },
-      {
-        text: "f",
-      },
-    ],
   },
   serpent: {
     hp: 8,
@@ -449,29 +250,6 @@ const characters = {
         },
       },
     },
-    letters: [
-      {
-        text: "s",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "p",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "n",
-      },
-      {
-        text: "t",
-      },
-    ],
   },
   merfolk: {
     hp: 8,
@@ -484,29 +262,6 @@ const characters = {
         },
       },
     },
-    letters: [
-      {
-        text: "m",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "f",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "l",
-      },
-      {
-        text: "k",
-      },
-    ],
   },
   dinosaur: {
     hp: 12,
@@ -519,32 +274,6 @@ const characters = {
         },
       },
     },
-    letters: [
-      {
-        text: "d",
-      },
-      {
-        text: "i",
-      },
-      {
-        text: "n",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "s",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "u",
-      },
-      {
-        text: "r",
-      },
-    ],
   },
   ant: {
     hp: 3,
@@ -561,17 +290,6 @@ const characters = {
         },
       },
     },
-    letters: [
-      {
-        text: "a",
-      },
-      {
-        text: "n",
-      },
-      {
-        text: "t",
-      },
-    ],
   },
   golem: {
     hp: 3,
@@ -591,23 +309,6 @@ const characters = {
         return Math.max(0, incomingDamage - 1);
       },
     },
-    letters: [
-      {
-        text: "g",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "l",
-      },
-      {
-        text: "e",
-      },
-      {
-        text: "m",
-      },
-    ],
   },
   ghost: {
     hp: 2,
@@ -636,23 +337,6 @@ const characters = {
         };
       },
     },
-    letters: [
-      {
-        text: "g",
-      },
-      {
-        text: "h",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "s",
-      },
-      {
-        text: "t",
-      },
-    ],
   },
   ghoul: {
     hp: 5,
@@ -695,23 +379,6 @@ const characters = {
         player.updateLetterEffectBulk(lockChanges);
       },
     },
-    letters: [
-      {
-        text: "g",
-      },
-      {
-        text: "h",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "u",
-      },
-      {
-        text: "l",
-      },
-    ],
   },
   shaman: {
     hp: 12,
@@ -736,14 +403,6 @@ const characters = {
         enemy.replaceLetters(pickRandomlyFromArray(transforms));
       },
     },
-    letters: [
-      { text: "s" },
-      { text: "h" },
-      { text: "a" },
-      { text: "m" },
-      { text: "a" },
-      { text: "n" },
-    ],
   },
   imp: {
     hp: 6,
@@ -767,17 +426,6 @@ const characters = {
         player.takeDamage(1);
       },
     },
-    letters: [
-      {
-        text: "i",
-      },
-      {
-        text: "m",
-      },
-      {
-        text: "p",
-      },
-    ],
   },
   thorny: {
     hp: 8,
@@ -805,26 +453,6 @@ const characters = {
         return incomingDamage;
       },
     },
-    letters: [
-      {
-        text: "t",
-      },
-      {
-        text: "h",
-      },
-      {
-        text: "o",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "n",
-      },
-      {
-        text: "y",
-      },
-    ],
   },
   vampire: {
     hp: 14,
@@ -848,29 +476,6 @@ const characters = {
         enemy.heal(damage);
       },
     },
-    letters: [
-      {
-        text: "v",
-      },
-      {
-        text: "a",
-      },
-      {
-        text: "m",
-      },
-      {
-        text: "p",
-      },
-      {
-        text: "i",
-      },
-      {
-        text: "r",
-      },
-      {
-        text: "e",
-      },
-    ],
   },
 };
 

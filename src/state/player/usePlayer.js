@@ -9,6 +9,7 @@ import updateLetterEffect, {
   updateLetterEffectBulk,
 } from "./ducks/updateLetterEffect";
 import load from "./ducks/load";
+import createLettersFromString from "../../utils/createLettersFromString";
 
 const PlayerContext = createContext(null);
 
@@ -24,9 +25,15 @@ const PlayerContextProvider = ({ children }) => {
     rememberedWords,
     minWordLength,
     maxRememberedWords,
-    letters,
+    word,
   } = state;
   const character = characters[key];
+
+  let letters = createLettersFromString(key);
+
+  if (word) {
+    letters = createLettersFromString(word);
+  }
 
   return (
     <PlayerContext.Provider
