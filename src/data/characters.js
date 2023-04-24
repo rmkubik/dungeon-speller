@@ -113,6 +113,18 @@ const characters = {
     memory: 12,
     minWordLength: 5,
     level: 6,
+    ability: {
+      name: "Reference",
+      effectText: "Odd length words deal 4 damage",
+      onCalculateEffects: ({ effects, word }) => {
+        const isOdd = word.length % 2 !== 0;
+
+        return {
+          ...effects,
+          sword: isOdd ? 4 : effects.sword,
+        };
+      },
+    },
   },
   knight: {
     hp: 10,
