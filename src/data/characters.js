@@ -72,12 +72,7 @@ const characters = {
     ability: {
       name: "Anger",
       effectText: "Deal 1 extra damage for each word this fight",
-      onCalculateEffects: ({
-        effects,
-        enemyLettersInWord,
-        word,
-        wordCountThisFight,
-      }) => {
+      onCalculateEffects: ({ effects, wordCountThisFight }) => {
         return {
           ...effects,
           sword: Math.max(0, effects.sword + wordCountThisFight),
@@ -90,6 +85,13 @@ const characters = {
     memory: 8,
     minWordLength: 4,
     level: 6,
+    ability: {
+      name: "Stalling",
+      effectText: "Add 2 letters to enemy intent countdown",
+      onResetIntentTracker: () => {
+        return -2;
+      },
+    },
   },
   thief: {
     hp: 8,
@@ -415,6 +417,7 @@ const characters = {
       effectText: "Change after every word",
       onUsedWord: ({ enemy }) => {
         const transforms = ["hawk", "serpent", "spider", "ant", "wolf"];
+
         enemy.replaceLetters(pickRandomlyFromArray(transforms));
       },
     },

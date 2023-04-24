@@ -27,15 +27,9 @@ const EnemyContextProvider = ({ children }) => {
     lettersSinceLastIntentTrigger,
     currentIntent,
     state,
-    word,
+    letters,
   } = reducerState;
   const character = characters[key];
-
-  let letters = createLettersFromString(key);
-
-  if (word) {
-    letters = createLettersFromString(word);
-  }
 
   return (
     <EnemyContext.Provider

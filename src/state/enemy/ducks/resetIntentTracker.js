@@ -1,6 +1,7 @@
-const resetIntentTracker = (dispatch) => () => {
+const resetIntentTracker = (dispatch) => (initialValue) => {
   dispatch({
     type: "INTENT_RESET",
+    initialValue,
   });
 };
 
@@ -8,7 +9,9 @@ function reduceIntentReset(state, action) {
   if (action.type === "INTENT_RESET") {
     return {
       ...state,
-      lettersSinceLastIntentTrigger: 0,
+      lettersSinceLastIntentTrigger: action.initialValue
+        ? action.initialValue
+        : 0,
     };
   }
 

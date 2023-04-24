@@ -25,15 +25,9 @@ const PlayerContextProvider = ({ children }) => {
     rememberedWords,
     minWordLength,
     maxRememberedWords,
-    word,
+    letters,
   } = state;
   const character = characters[key];
-
-  let letters = createLettersFromString(key);
-
-  if (word) {
-    letters = createLettersFromString(word);
-  }
 
   return (
     <PlayerContext.Provider

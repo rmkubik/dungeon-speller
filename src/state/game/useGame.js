@@ -177,7 +177,9 @@ const GameContextProvider = ({ children }) => {
           break;
       }
 
-      enemy.resetIntentTracker();
+      const newDefaultIntentValue = player.ability?.onResetIntentTracker?.();
+
+      enemy.resetIntentTracker(newDefaultIntentValue);
       enemy.pickNewIntent();
     }
   }, [
@@ -204,6 +206,9 @@ const GameContextProvider = ({ children }) => {
       if (newEncounterLevel === 6) {
         player.load(pickRandomPlayerCharKeyForLevel(6));
       }
+
+      const newDefaultIntentValue = player.ability?.onResetIntentTracker?.();
+      enemy.resetIntentTracker(newDefaultIntentValue);
 
       setEnemyCount(newEncounterLevel);
       setWordCountThisFight(0);
