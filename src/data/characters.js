@@ -115,13 +115,29 @@ const characters = {
     level: 6,
     ability: {
       name: "Reference",
-      effectText: "Odd length words deal 4 damage",
+      effectText: "Odd length words deal 5 damage",
       onCalculateEffects: ({ effects, word }) => {
         const isOdd = word.length % 2 !== 0;
 
         return {
           ...effects,
-          sword: isOdd ? 4 : effects.sword,
+          sword: isOdd ? 5 : effects.sword,
+        };
+      },
+    },
+  },
+  warrior: {
+    hp: 16,
+    memory: 8,
+    minWordLength: 4,
+    level: 11,
+    ability: {
+      name: "Strength",
+      effectText: "Deal 1 extra damage",
+      onCalculateEffects: ({ effects }) => {
+        return {
+          ...effects,
+          sword: effects.sword + 1,
         };
       },
     },
@@ -130,6 +146,7 @@ const characters = {
     hp: 10,
     memory: 10,
     minWordLength: 4,
+    level: 11,
     ability: {
       name: "Armor",
       effectText: "Reduce incoming damage by 1",
@@ -142,6 +159,7 @@ const characters = {
     hp: 8,
     memory: 10,
     minWordLength: 2,
+    level: 11,
     ability: {
       name: "Backstab",
       effectText: "2x damage if using the enemy's last letter",
@@ -154,15 +172,91 @@ const characters = {
       },
     },
   },
+  acolyte: {
+    hp: 9,
+    memory: 12,
+    minWordLength: 5,
+    level: 11,
+    ability: {
+      name: "Specific",
+      effectText: "Even length words deal 2 extra damage",
+      onCalculateEffects: ({ effects, word }) => {
+        const isEven = word.length % 2 === 0;
+
+        return {
+          ...effects,
+          sword: isEven ? effects.sword + 2 : effects.sword,
+        };
+      },
+    },
+  },
   barbarian: {
-    hp: 12,
+    hp: 18,
     memory: 5,
     minWordLength: 4,
+    level: 16,
     ability: {
       name: "Rage",
       effectText: "Deal extra damage for each missing hp",
       onDealDamage: ({ incomingDamage, word, enemy, player }) => {
         return incomingDamage + (player.hp.max - player.hp.current);
+      },
+    },
+  },
+  paladin: {
+    hp: 20,
+    memory: 10,
+    minWordLength: 4,
+    level: 16,
+    ability: {
+      name: "Devotion",
+      effectText:
+        "Deal 1 extra damage for each word in memory that starts with the same letter",
+      onCalculateEffects: ({ effects, word, player }) => {
+        const firstLetter = word[0];
+
+        const firstLetterMatchCount = player.rememberedWords
+          .map((word) => word[0])
+          .filter((letter) => letter === firstLetter).length;
+
+        return {
+          ...effects,
+          sword: effects.sword + firstLetterMatchCount,
+        };
+      },
+    },
+  },
+  assassin: {
+    hp: 12,
+    memory: 10,
+    minWordLength: 2,
+    level: 16,
+    ability: {
+      name: "Barrage",
+      effectText: "Every other word deals 3 bonus damage",
+      onCalculateEffects: ({ effects, wordCountThisFight }) => {
+        const isEven = wordCountThisFight % 2 === 0;
+
+        return {
+          ...effects,
+          sword: isEven ? effects.sword + 3 : effects.sword,
+        };
+      },
+    },
+  },
+  wizard: {
+    hp: 10,
+    memory: 15,
+    minWordLength: 5,
+    level: 16,
+    ability: {
+      name: "Truth",
+      effectText: "Deal damage equal to word length",
+      onCalculateEffects: ({ effects, word }) => {
+        return {
+          ...effects,
+          sword: word.length,
+        };
       },
     },
   },
