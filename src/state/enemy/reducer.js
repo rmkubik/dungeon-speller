@@ -8,7 +8,7 @@ import { reduceSubmitWord } from "./ducks/submitWord";
 
 function reducer(state, action) {
   if (state.debug) {
-    console.log(`Enemy action: ${action.type}`);
+    console.log(`Enemy action: ${action.type}`, state, action);
   }
 
   return reduceReducers(

@@ -69,6 +69,21 @@ const characters = {
     memory: 6,
     minWordLength: 4,
     level: 6,
+    ability: {
+      name: "Anger",
+      effectText: "Deal 1 extra damage for each word this fight",
+      onCalculateEffects: ({
+        effects,
+        enemyLettersInWord,
+        word,
+        wordCountThisFight,
+      }) => {
+        return {
+          ...effects,
+          sword: Math.max(0, effects.sword + wordCountThisFight),
+        };
+      },
+    },
   },
   squire: {
     hp: 12,

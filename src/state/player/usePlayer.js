@@ -16,7 +16,7 @@ const PlayerContext = createContext(null);
 const PlayerContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log("player", { state });
+  console.log("player", { state, load: load(dispatch) });
 
   const {
     hp,

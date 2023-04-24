@@ -1,4 +1,5 @@
 import characters from "../../../data/characters";
+import createLettersFromString from "../../../utils/createLettersFromString";
 import pickRandomKey from "../../../utils/object/pickRandomKey";
 
 const load = (dispatch) => (key) => {
@@ -20,6 +21,12 @@ function reduceLoadEnemy(state, action) {
 
     const character = characters[key];
 
+    let letters = createLettersFromString(key);
+
+    if (character.word) {
+      letters = createLettersFromString(character.word);
+    }
+
     return {
       ...state,
       key,
@@ -27,7 +34,7 @@ function reduceLoadEnemy(state, action) {
       maxHp: character.hp,
       currentIntent: pickRandomKey(character.intents),
       lettersSinceLastIntentTrigger: 0,
-      letters: character.letters,
+      letters,
       state: "loading",
     };
   }

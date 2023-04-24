@@ -1,4 +1,5 @@
 import characters from "../../../data/characters";
+import createLettersFromString from "../../../utils/createLettersFromString";
 
 const load = (dispatch) => (key) => {
   dispatch({
@@ -13,6 +14,12 @@ function reduceLoadPlayer(state, action) {
 
     const character = characters[key];
 
+    let letters = createLettersFromString(key);
+
+    if (character.word) {
+      letters = createLettersFromString(character.word);
+    }
+
     return {
       ...state,
       key,
@@ -20,7 +27,7 @@ function reduceLoadPlayer(state, action) {
       maxHp: character.hp,
       minWordLength: character.minWordLength,
       maxRememberedWords: character.memory,
-      letters: character.letters,
+      letters,
     };
   }
 

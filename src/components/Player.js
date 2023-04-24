@@ -5,7 +5,8 @@ import calculateEffects from "../utils/calculateEffects";
 import symbols from "../data/symbols";
 
 const Player = () => {
-  const { player, enemy, updateWord, word, submitWord } = useGame();
+  const { player, enemy, updateWord, word, submitWord, wordCountThisFight } =
+    useGame();
 
   return (
     <div>
@@ -22,7 +23,9 @@ const Player = () => {
       <form onSubmit={submitWord}>
         <input type="text" value={word} onChange={updateWord} />
         <div className="wordEffectSummary">
-          {Object.entries(calculateEffects(player, enemy, word))
+          {Object.entries(
+            calculateEffects({ player, enemy, word, wordCountThisFight })
+          )
             .filter(([, count]) => count > 0)
             .map(([symbol, count]) => {
               return (

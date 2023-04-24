@@ -1,6 +1,6 @@
 import intersectionOfStrings from "./intersectionOfStrings";
 
-function calculateEffects(player, enemy, word) {
+function calculateEffects({ player, enemy, word, wordCountThisFight }) {
   const enemyString = enemy.letters.map((letter) => letter.text).join("");
   const enemyLettersInWord = intersectionOfStrings(enemyString, word);
 
@@ -18,6 +18,7 @@ function calculateEffects(player, enemy, word) {
       enemy,
       enemyLettersInWord,
       word,
+      wordCountThisFight,
     }) ?? initialEffects;
 
   const finalEffects =
@@ -27,6 +28,7 @@ function calculateEffects(player, enemy, word) {
       enemy,
       enemyLettersInWord,
       word,
+      wordCountThisFight,
     }) ?? playerEffects;
 
   return finalEffects;

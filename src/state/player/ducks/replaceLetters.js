@@ -1,3 +1,5 @@
+import createLettersFromString from "../../../utils/createLettersFromString";
+
 const replaceLetters = (dispatch) => (word) => {
   dispatch({
     type: "LETTERS_REPLACE",

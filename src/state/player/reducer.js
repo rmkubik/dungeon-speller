@@ -8,7 +8,7 @@ import { reduceLettersUpdate } from "./ducks/updateLetterEffect";
 
 function reducer(state, action) {
   if (state.debug) {
-    console.log(`Player action: ${action.type}`);
+    console.log(`Player action: ${action.type}`, action, state);
   }
 
   return reduceReducers(

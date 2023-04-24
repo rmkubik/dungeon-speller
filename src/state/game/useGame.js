@@ -19,6 +19,7 @@ const GameContextProvider = ({ children }) => {
   const [dictionary, setDictionary] = useState(wordsText.split("\n"));
   const [enemyCount, setEnemyCount] = useState(1);
   const [winningEnemyCount, setWinningEnemyCount] = useState(20);
+  const [wordCountThisFight, setWordCountThisFight] = useState(0);
 
   const isWordInDictionary = (maybeWord) => {
     return dictionary.includes(maybeWord);
@@ -78,7 +79,13 @@ const GameContextProvider = ({ children }) => {
       return;
     }
 
-    const effects = calculateEffects(player, enemy, word);
+    const newWordCountThisFight = wordCountThisFight + 1;
+    const effects = calculateEffects({
+      player,
+      enemy,
+      word,
+      wordCountThisFight: newWordCountThisFight,
+    });
 
     let enemyDamage = effects.sword;
 
@@ -122,6 +129,7 @@ const GameContextProvider = ({ children }) => {
 
     player.rememberWord(word);
     enemy.submitWord(word);
+    setWordCountThisFight(newWordCountThisFight);
     setWord("");
   };
 
@@ -131,8 +139,6 @@ const GameContextProvider = ({ children }) => {
     }
 
     const letterCount = enemy.lettersSinceLastIntentTrigger;
-
-    console.log({ letterCount });
 
     if (enemy.intent && letterCount >= enemy.intent.letterCount) {
       // Enemy intent takes affect
@@ -200,6 +206,7 @@ const GameContextProvider = ({ children }) => {
       }
 
       setEnemyCount(newEncounterLevel);
+      setWordCountThisFight(0);
     }
   }, [enemy.hp.current]);
 
@@ -228,6 +235,7 @@ const GameContextProvider = ({ children }) => {
         },
         enemyCount,
         winningEnemyCount,
+        wordCountThisFight,
       }}
     >
       {children}
