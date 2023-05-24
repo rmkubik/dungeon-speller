@@ -26,7 +26,7 @@ const GameContextProvider = ({ children }) => {
   };
 
   const updateWord = (e) => {
-    const newWord = e.target.value;
+    const newWord = e.target.value.toLowerCase();
 
     if (newWord.length === 0) {
       setWord("");
